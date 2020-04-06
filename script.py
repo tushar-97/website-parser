@@ -2,13 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 from flask import Flask
 
-application  = Flask(__name__)
+app = Flask(__name__)
 URL = 'https://www.mohfw.gov.in'
 page = requests.get(URL)
 soup = BeautifulSoup(page.content, 'html.parser')
 
 
-@application .route("/")
+@app.route("/")
 def hello():
   sum = 0
   for div in soup.find_all('div', { "class" : "site-stats-count"}):
@@ -20,4 +20,4 @@ def hello():
 
 
 if __name__ == '__main__':
-    application .run()
+    app.run()
