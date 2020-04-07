@@ -6,12 +6,11 @@ from flask import jsonify
 app = Flask(__name__)
 
 URL = 'https://www.mohfw.gov.in'
-page = requests.get(URL)
-soup = BeautifulSoup(page.content, 'html.parser')
-
 
 @app.route("/")
 def details():
+  page = requests.get(URL)
+  soup = BeautifulSoup(page.content, 'html.parser')
   sum = 0
   data = []
   for div in soup.find_all('div', { "class" : "site-stats-count"}):
@@ -35,6 +34,8 @@ def details():
 @app.route("/total")
 def total():
   sum = 0
+  page = requests.get(URL)
+  soup = BeautifulSoup(page.content, 'html.parser')
   for div in soup.find_all('div', { "class" : "site-stats-count"}):
     for li in div.find_all('li'):
       for value in li.find_all('strong'):
